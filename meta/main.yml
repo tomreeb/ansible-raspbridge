@@ -4,6 +4,6 @@ galaxy_info:
   license: BSD
   min_ansible_version: 12.4
   platforms:
-  - name: Raspbian
+  - name: Debian
     versions:
-    - Jesse
+    - Jessie
