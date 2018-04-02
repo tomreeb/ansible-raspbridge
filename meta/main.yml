@@ -6,4 +6,4 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-    - Jessie
+    - jessie
