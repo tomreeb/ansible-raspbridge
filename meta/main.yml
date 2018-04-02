@@ -2,8 +2,9 @@ galaxy_info:
   author: Tom Reeb
   description: Ansible role to configure a Raspberry Pi as an iPhone USB Tether to Ethernet Bridge
   license: BSD
-  min_ansible_version: 12.4
+  min_ansible_version: 2.4
   platforms:
   - name: Debian
     versions:
     - jessie
+  tags: [raspberrypi]
