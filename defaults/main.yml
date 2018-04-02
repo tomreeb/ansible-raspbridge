@@ -1,0 +1,11 @@
+---
+# defaults file for ansible-raspbridge
+bridge_interface: eth0
+bridge_interface_address: 172.24.1.1
+bridge_netmask: 255.255.255.0
+bridge_network: 172.24.1.0
+bridge_broadcast: 172.24.1.255
+bridge_cidr: 24
+dns_server: 8.8.8.8
+dhcp_range: 172.24.1.5,172.24.1.15
+iphone_interface: eth1

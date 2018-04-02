@@ -1,0 +1,7 @@
+interface='{{ bridge_interface }}'
+listen-address='{{ bridge_interface_address }}'
+bind-interfaces
+server='{{ dns_server }}'
+domain-needed
+bogus-priv
+dhcp-range='{{ dhcp_range }}',12h

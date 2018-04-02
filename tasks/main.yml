@@ -1,0 +1,52 @@
+---
+# tasks file for ansible-raspbridge
+- name: Install Packages
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items:
+   - gvfs
+   - ipheth-utils
+   - libimobiledevice-utils
+   - gvfs-backends
+   - gvfs-bin
+   - gvfs-fuse
+   - ifuse
+   - dnsmasq
+
+- name: Configure Interfaces File
+  lineinfile:
+    path: /etc/network/interfaces
+    regexp: '^iface '{{ bridge_interface }}' inet manual'
+    line: '#iface '{{ bridge_interface }}' inet manual'
+
+- name: Configure Interfaces File
+  blockinfile:
+    path: /etc/network/interfaces
+    block: |
+      allow-hotplug '{{ bridge_interface }}'
+      iface '{{ bridge_interface }}' inet static
+        address '{{ bridge_interface_address }}'
+        netmask '{{ bridge_netmask }}'
+        network '{{ bridge_network }}'
+        broadcast '{{ bridge_broadcast }}'
+
+      allow-hotplug '{{ iphone_interface }}'
+      iface '{{ iphone_interface }}' inet dhcp
+
+- name: allow ip forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+
+- name: Create Iptables NAT chain
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: '{{ bridge_interface }}'
+    source: '{{ bridge_network }}'/'{{ bridge_cidr }}'
+    jump: MASQUERADE
+    protocol: all
+  notify: iptables-save
+
+- name: Reboot when complete
+  command: shutdown -r now
