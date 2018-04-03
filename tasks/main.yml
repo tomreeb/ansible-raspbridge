@@ -51,6 +51,3 @@
     jump: MASQUERADE
     protocol: all
   notify: iptables-save
-
-- name: Reboot when complete
-  command: shutdown -r now
