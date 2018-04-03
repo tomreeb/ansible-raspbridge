@@ -2,3 +2,6 @@
 # handlers file for ansible-raspbridge
 - name: iptables-save
   command: iptables-save
+
+- name: restart dnsmasq
+  service: name=dnsmasq state=restarted
