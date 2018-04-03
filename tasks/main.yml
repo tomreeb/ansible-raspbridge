@@ -32,6 +32,10 @@
       allow-hotplug '{{ iphone_interface }}'
       iface '{{ iphone_interface }}' inet dhcp
 
+- name: Configure dnsmasq
+  template: src=dnsmasq.conf.j2 dest=/etc/dnsmasq.conf
+  notify: restart dnsmasq
+
 - name: allow ip forwarding
   sysctl:
     name: net.ipv4.ip_forward
